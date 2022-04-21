@@ -2,8 +2,8 @@ package com.understand.anothertestredis.repository;
 
 import java.util.List;
 
-public interface MyCrudOperations<T>  {
+public interface MyCrudOperations<T, ID>  {
     T save(T t);
-    T findByKey(String key);
+    T findByKey(ID key);
     List<T> findAll();
 }

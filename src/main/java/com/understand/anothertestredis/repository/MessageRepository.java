@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Repository
-public class MessageRepository implements MyCrudOperations<Message> {
+public class MessageRepository implements MyCrudOperations<Message, String> {
     private static final String HASH_KEY_PREFIX = "MessageKey:";
 
     @Resource(name = "message")

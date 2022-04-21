@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 import java.util.*;
 
 @Repository
-public class UserRepository implements MyCrudOperations<User> {
+public class UserRepository implements MyCrudOperations<User, String> {
     private static final String HASH_KEY_PREFIX = "UserKey:";
 
     @Resource(name = "user")
