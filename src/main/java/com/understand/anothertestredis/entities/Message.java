@@ -23,7 +23,6 @@ public class Message implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
     private String id = UUID.randomUUID().toString();
     //username is not required to show
     @JsonInclude(JsonInclude.Include.NON_NULL)
