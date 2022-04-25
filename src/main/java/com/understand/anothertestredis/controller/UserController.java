@@ -27,11 +27,11 @@ public class UserController {
     //creating user with checking have already exists or not: if yes then throws an exception
     @PostMapping("/register")
     public ResponseEntity<User> createUser(@RequestBody @Valid User userEntity) {
-//        userService.findAll().forEach(userEntity1 -> {
-//            if (userEntity1.getUsername().equals(userEntity.getUsername())) {
-//                throw new DuplicateKeyException("This username have already been");
-//            }
-//        });
+        userService.findAll().forEach(userEntity1 -> {
+            if (userEntity1.getUsername().equals(userEntity.getUsername())) {
+                throw new DuplicateKeyException("This username have already been");
+            }
+        });
         return new ResponseEntity<>(userService.save(userEntity), HttpStatus.CREATED);
     }
 
