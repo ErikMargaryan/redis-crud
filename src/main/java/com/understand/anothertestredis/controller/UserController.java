@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@Validated
 @RestController
 @RequestMapping("user")
 public class UserController {
@@ -26,7 +25,7 @@ public class UserController {
 
     //creating user with checking have already exists or not: if yes then throws an exception
     @PostMapping("/register")
-    public ResponseEntity<User> createUser(@RequestBody @Valid User userEntity) {
+    public ResponseEntity<User> createUser(@RequestBody User userEntity) {
         userService.findAll().forEach(userEntity1 -> {
             if (userEntity1.getUsername().equals(userEntity.getUsername())) {
                 throw new DuplicateKeyException("This username have already been");

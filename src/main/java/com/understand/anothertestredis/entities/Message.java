@@ -25,7 +25,7 @@ public class Message implements Serializable {
     //username is not required to show
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String username;
-    @NotBlank
+    @NotBlank(message = "message type hasn't to be null")
     private String content;
     private String localDateTime = LocalDateTime.now().toString();
 

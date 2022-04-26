@@ -22,9 +22,11 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String id = UUID.randomUUID().toString();
-    @NotNull
+    @NotNull(message = "message type hasn't to be null")
     private MessageType type;
-//    @UsernameValidation
+    @NotBlank(message = "username has to been fulfilled")
+    @NotNull(message = "username hasn't to be null")
+    //    @UsernameValidation
     private String username;
     @Min(18)
     @Max(80)
