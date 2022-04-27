@@ -16,17 +16,17 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
+//@JsonIgnoreProperties(ignoreUnknown = true)
 public class Message implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     //username is not required to show
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @NotBlank(message = "username has to been fulfilled")
-    @NotNull(message = "username hasn't to be null")
+//    @JsonInclude(JsonInclude.Include.NON_NULL)
+//    @NotBlank(message = "username has to been fulfilled")
+//    @NotNull(message = "username hasn't to be null")
     private String username;
-    @NotBlank(message = "message type hasn't to be null")
+//    @NotBlank(message = "message type hasn't to be null")
     private String content;
     private String localDateTime = LocalDateTime.now().toString();
 

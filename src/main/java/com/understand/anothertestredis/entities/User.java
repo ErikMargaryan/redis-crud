@@ -15,21 +15,21 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
+//@JsonIgnoreProperties(ignoreUnknown = true)
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @NotBlank(message = "username has to been fulfilled")
-    @NotNull(message = "username hasn't to be null")
+//    @NotBlank(message = "username has to been fulfilled")
+//    @NotNull(message = "username hasn't to be null")
     //    @UsernameValidation
     private String username;
-    @NotNull(message = "message type hasn't to be null")
+//    @NotNull(message = "message type hasn't to be null")
     private MessageType type;
-    @Min(18)
-    @Max(80)
+//    @Min(18)
+//    @Max(80)
     private int age;
-    @Email
+//    @Email
     private String email;
     private List<Message> messages;
 
