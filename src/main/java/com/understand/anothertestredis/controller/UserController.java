@@ -2,6 +2,7 @@ package com.understand.anothertestredis.controller;
 
 import com.understand.anothertestredis.entities.User;
 import com.understand.anothertestredis.service.UserService;
+import com.understand.anothertestredis.service.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.ResponseEntity;
@@ -22,25 +23,25 @@ public class UserController {
 
     //creating user with checking have already exists or not: if yes then throws an exception
     @PostMapping("/register")
-    public ResponseEntity<User> createUser(@RequestBody User userEntity) {
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
         userService.findAll().forEach(userEntity1 -> {
-            if (userEntity1.getUsername().equals(userEntity.getUsername())) {
+            if (userEntity1.getUsername().equals(userDto.getUsername())) {
                 throw new DuplicateKeyException("This username have already been");
             }
         });
 //        return new ResponseEntity<>(userService.save(userEntity), HttpStatus.CREATED);
-        return ResponseEntity.ok(userService.save(userEntity));
+        return ResponseEntity.ok(userService.save(userDto));
     }
 
     //show "username"'s messages and details
     @GetMapping
-    public ResponseEntity<User> getByUsername(@RequestParam(value="username") String username) {
+    public ResponseEntity<UserDto> getByUsername(@RequestParam(value="username") String username) {
         return ResponseEntity.ok(userService.findByUsername(username));
     }
 
     //show all users with their messages
     @GetMapping("/all")
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<UserDto>> getAllUsers() {
         return ResponseEntity.ok(userService.findAll());
     }
 
