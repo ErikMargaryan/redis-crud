@@ -4,6 +4,8 @@ import com.understand.anothertestredis.entities.Message;
 import com.understand.anothertestredis.entities.User;
 import com.understand.anothertestredis.repository.MessageRepository;
 import com.understand.anothertestredis.repository.UserRepository;
+import com.understand.anothertestredis.service.dto.UserDto;
+import com.understand.anothertestredis.service.mapper.MapUserEntityDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -16,30 +18,32 @@ import java.util.*;
 public class UserService {
     private final UserRepository userRepository;
     private final MessageRepository messageRepository;
+    private final MapUserEntityDtoMapper mapUser;
 
     @Autowired
-    public UserService(UserRepository userRepository, MessageRepository messageRepository) {
+    public UserService(UserRepository userRepository, MessageRepository messageRepository, MapUserEntityDtoMapper mapUser) {
         this.userRepository = userRepository;
         this.messageRepository = messageRepository;
+        this.mapUser = mapUser;
     }
 
-    public User save(@Valid User entity) {
+    public UserDto save(@Valid UserDto dto) {
         Message message = new Message();
-        entity.getMessages().forEach(messageEntity -> {
-            message.setUsername(entity.getUsername() + UUID.randomUUID());
+        dto.getMessages().forEach(messageEntity -> {
+            message.setUsername(dto.getUsername() + UUID.randomUUID());
             message.setContent(messageEntity.getContent());
             message.setLocalDateTime(messageEntity.getLocalDateTime());
             messageRepository.save(message);
         });
-        return userRepository.save(entity);
+        return mapUser.entityToDto(userRepository.save(mapUser.dtoToEntity(dto)));
     }
 
-    public User findByUsername(String key) {
-        return userRepository.findByKey(key);
+    public UserDto findByUsername(String key) {
+        return mapUser.entityToDto(userRepository.findByKey(key));
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public List<UserDto> findAll() {
+        return mapUser.toDtoList(userRepository.findAll());
     }
 
 }

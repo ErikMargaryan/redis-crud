@@ -4,6 +4,10 @@ import com.understand.anothertestredis.entities.Message;
 import com.understand.anothertestredis.entities.User;
 import com.understand.anothertestredis.repository.MessageRepository;
 import com.understand.anothertestredis.repository.UserRepository;
+import com.understand.anothertestredis.service.dto.MessageDto;
+import com.understand.anothertestredis.service.dto.UserDto;
+import com.understand.anothertestredis.service.mapper.MapMessageEntityDtoMapper;
+import com.understand.anothertestredis.service.mapper.MapUserEntityDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -18,26 +22,37 @@ public class MessageService {
 
     private final UserRepository userRepository;
 
+    private final MapMessageEntityDtoMapper mapMessage;
+
+    private final MapUserEntityDtoMapper mapUser;
+
     @Autowired
-    public MessageService(MessageRepository messageRepository, UserRepository userRepository) {
+    public MessageService(MessageRepository messageRepository, UserRepository userRepository, MapMessageEntityDtoMapper mapMessage, MapUserEntityDtoMapper mapUser) {
         this.messageRepository = messageRepository;
         this.userRepository = userRepository;
+        this.mapMessage = mapMessage;
+        this.mapUser = mapUser;
     }
 
-    public Message save(@Valid Message entity) {
-        User byUsername = userRepository.findByKey(entity.getUsername());
-        List<Message> messages = byUsername.getMessages();
-        messages.add(entity);
+    public MessageDto save(@Valid MessageDto dto) {
+        //here I have to use mapUser instance but later
+//        User byUsername = userRepository.findByKey(dto.getUsername());
+//        List<Message> messages = byUsername.getMessages();
+//        messages.add(dto);
+//        byUsername.setMessages(messages);
+        UserDto byUsername = mapUser.entityToDto(userRepository.findByKey(dto.getUsername()));
+        List<MessageDto> messages = byUsername.getMessages();
+        messages.add(dto);
         byUsername.setMessages(messages);
-        userRepository.save(byUsername);
-        return messageRepository.save(entity);
+        userRepository.save(mapUser.dtoToEntity(byUsername));
+        return mapMessage.entityToDto(messageRepository.save(mapMessage.dtoToEntity(dto)));
     }
 
-    public Message findByKey(String key) {
-        return messageRepository.findByActualKey(key);
+    public MessageDto findByKey(String key) {
+        return mapMessage.entityToDto(messageRepository.findByActualKey(key));
     }
 
-    public List<Message> findAll() {
-        return messageRepository.findAll();
+    public List<MessageDto> findAll() {
+        return mapMessage.toDtoList(messageRepository.findAll());
     }
 }
