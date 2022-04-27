@@ -26,25 +26,20 @@ public class UserService {
     public User save(@Valid User entity) {
         Message message = new Message();
         entity.getMessages().forEach(messageEntity -> {
-            message.setId(messageEntity.getId());
+            message.setUsername(entity.getUsername() + UUID.randomUUID());
             message.setContent(messageEntity.getContent());
             message.setLocalDateTime(messageEntity.getLocalDateTime());
             messageRepository.save(message);
         });
-
         return userRepository.save(entity);
     }
 
-    public User findByKey(String key) {
+    public User findByUsername(String key) {
         return userRepository.findByKey(key);
     }
 
     public List<User> findAll() {
         return userRepository.findAll();
-    }
-
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
     }
 
 }

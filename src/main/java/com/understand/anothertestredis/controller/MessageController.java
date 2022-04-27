@@ -27,10 +27,10 @@ public class MessageController {
             throw new ValidationException("Content have to be filled");
         }
 
-        return new ResponseEntity<>(messageService.save(messageEntity), HttpStatus.CREATED);
+        return ResponseEntity.ok(messageService.save(messageEntity));
     }
 
-    //find message by key
+    //find message by key ex. like: http://www.localhost:8080/messages/MessageKey:Erika86f9d36-55b9-4c4b-8dc4-a036e74b90ae
     @GetMapping("/{key}")
     public ResponseEntity<Message> getMessageByKey(@PathVariable("key") String actualKey) {
         return ResponseEntity.ok(messageService.findByKey(actualKey));

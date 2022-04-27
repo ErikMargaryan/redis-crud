@@ -5,10 +5,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Repository
 public class MessageRepository implements MyCrudOperations<Message, String> {
@@ -18,11 +15,11 @@ public class MessageRepository implements MyCrudOperations<Message, String> {
     private RedisTemplate<String, Message> template;
 
     public Message save(Message entity) {
-        template.opsForValue().set(HASH_KEY_PREFIX + entity.getId(), entity);
+        template.opsForValue().set(HASH_KEY_PREFIX + entity.getUsername() + UUID.randomUUID(), entity);
         return entity;
     }
 
-    public Message findByKey(String key) {
+    public Message findByActualKey(String key) {
         return template.opsForValue().get(key);
     }
 
@@ -34,7 +31,7 @@ public class MessageRepository implements MyCrudOperations<Message, String> {
         Iterator<String> it = keys.iterator();
 
         while (it.hasNext()) {
-            messageList.add(findByKey(it.next()));
+            messageList.add(findByActualKey(it.next()));
         }
         return messageList;
     }

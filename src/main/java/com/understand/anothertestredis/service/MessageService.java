@@ -25,7 +25,7 @@ public class MessageService {
     }
 
     public Message save(@Valid Message entity) {
-        User byUsername = userRepository.findByUsername(entity.getUsername());
+        User byUsername = userRepository.findByKey(entity.getUsername());
         List<Message> messages = byUsername.getMessages();
         messages.add(entity);
         byUsername.setMessages(messages);
@@ -34,7 +34,7 @@ public class MessageService {
     }
 
     public Message findByKey(String key) {
-        return messageRepository.findByKey(key);
+        return messageRepository.findByActualKey(key);
     }
 
     public List<Message> findAll() {

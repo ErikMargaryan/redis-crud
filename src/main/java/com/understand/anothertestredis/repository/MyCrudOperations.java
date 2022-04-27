@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface MyCrudOperations<T, K>  {
     T save(T t);
-    T findByKey(K key);
+    T findByActualKey(K key);
     List<T> findAll();
 }

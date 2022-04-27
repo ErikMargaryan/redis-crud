@@ -15,12 +15,11 @@ public class UserRepository implements MyCrudOperations<User, String> {
     private RedisTemplate<String, User> template;
 
     public User save(User entity) {
-        template.opsForValue().set(HASH_KEY_PREFIX + entity.getId(), entity);
-
+        template.opsForValue().set(HASH_KEY_PREFIX + entity.getUsername(), entity);
         return entity;
     }
 
-    public User findByKey(String key) {
+    public User findByActualKey(String key) {
         return template.opsForValue().get(key);
     }
 
@@ -31,18 +30,16 @@ public class UserRepository implements MyCrudOperations<User, String> {
         Iterator<String> it = keys.iterator();
 
         while (it.hasNext()) {
-            userList.add(findByKey(it.next()));
+            userList.add(findByActualKey(it.next()));
         }
 
         return userList;
     }
 
-    public User findByUsername(String username) {
-        List<User> userEntityList = findAll();
-        Optional<User> userOptional = userEntityList.stream().
-                filter(userEntity1 -> userEntity1.getUsername().
-                        equals(username)).findFirst();
-        return userOptional.orElseGet(userOptional::get);
+    // key is username
+    public User findByKey(String key) {
+        key = HASH_KEY_PREFIX + key;
+        return findByActualKey(key);
     }
 
 }

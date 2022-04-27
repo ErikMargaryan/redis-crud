@@ -10,7 +10,6 @@ import org.springframework.data.redis.core.RedisHash;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.List;
-import java.util.UUID;
 
 @RedisHash("user")
 @Data
@@ -21,13 +20,12 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String id = UUID.randomUUID().toString();
-    @NotNull(message = "message type hasn't to be null")
-    private MessageType type;
     @NotBlank(message = "username has to been fulfilled")
     @NotNull(message = "username hasn't to be null")
     //    @UsernameValidation
     private String username;
+    @NotNull(message = "message type hasn't to be null")
+    private MessageType type;
     @Min(18)
     @Max(80)
     private int age;
