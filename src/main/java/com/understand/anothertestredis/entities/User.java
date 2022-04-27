@@ -22,7 +22,6 @@ public class User implements Serializable {
 
     @NotBlank(message = "username has to been fulfilled")
     @NotNull(message = "username hasn't to be null")
-    //    @UsernameValidation
     private String username;
     @NotNull(message = "message type hasn't to be null")
     private MessageType type;
