@@ -1,7 +1,5 @@
 package com.understand.anothertestredis.validation.annotation;
 
-import com.understand.anothertestredis.entities.User;
-import com.understand.anothertestredis.service.UserService;
 import com.understand.anothertestredis.validation.validator.DuplicateUserValidator;
 
 import javax.validation.Constraint;
