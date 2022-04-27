@@ -1,10 +1,11 @@
-package com.understand.anothertestredis.util;
+package com.understand.anothertestredis.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,6 +13,6 @@ import java.util.Date;
 public class ErrorDetails {
     private Date timestamp;
     private String exception;
-    private String message;
+    private List<String> message;
     private String details;
 }

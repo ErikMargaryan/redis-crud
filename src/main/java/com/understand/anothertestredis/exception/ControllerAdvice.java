@@ -1,7 +1,5 @@
-package com.understand.anothertestredis.util;
+package com.understand.anothertestredis.exception;
 
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -18,17 +16,6 @@ import java.util.List;
 @RestControllerAdvice
 public class ControllerAdvice extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({DuplicateKeyException.class})
-    private ResponseEntity<Object> handlerIllegalArgument(DuplicateKeyException ex, WebRequest request) {
-        ErrorDetails errorDetails = new ErrorDetails(
-                new Date(),
-                ex.getClass().getSimpleName(),
-                ex.getMessage(),
-                request.getDescription(false)
-        );
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDetails);
-    }
-
     @ExceptionHandler({ValidationException.class})
     public ResponseEntity<Object> handleValidationException(ValidationException ex, WebRequest request) {
         List<String> details = new ArrayList<>();
@@ -36,9 +23,10 @@ public class ControllerAdvice extends ResponseEntityExceptionHandler {
         ErrorDetails error = new ErrorDetails(
                 new Date(),
                 ex.getClass().getSimpleName(),
-                ex.getMessage(),
+//                ex.getMessage(),
+                details,
                 request.getDescription(false));
-        return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
+        return ResponseEntity.badRequest().body(error);
     }
 
     @ExceptionHandler({ConstraintViolationException.class})
@@ -51,9 +39,10 @@ public class ControllerAdvice extends ResponseEntityExceptionHandler {
         ErrorDetails error = new ErrorDetails(
                 new Date(),
                 ex.getClass().getSimpleName(),
-                ex.getMessage(),
+//                ex.getMessage(),
+                details,
                 request.getDescription(false));
-        return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
+        return ResponseEntity.badRequest().body(error);
     }
 
 
