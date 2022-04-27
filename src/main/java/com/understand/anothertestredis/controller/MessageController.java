@@ -1,9 +1,7 @@
 package com.understand.anothertestredis.controller;
 
-import com.understand.anothertestredis.entities.Message;
 import com.understand.anothertestredis.service.MessageService;
 import com.understand.anothertestredis.service.dto.MessageDto;
-import com.understand.anothertestredis.service.mapper.MapMessageEntityDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

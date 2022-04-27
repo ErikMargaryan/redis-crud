@@ -1,8 +1,8 @@
 package com.understand.anothertestredis.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.understand.anothertestredis.entities.Message;
 import com.understand.anothertestredis.entities.enums.MessageType;
+import com.understand.anothertestredis.validation.annotation.UsernameValidation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +19,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserDto {
 
+    @UsernameValidation
     private String username;
     @NotNull(message = "message type hasn't to be null")
     private MessageType type;

@@ -1,7 +1,6 @@
 package com.understand.anothertestredis.service;
 
 import com.understand.anothertestredis.entities.Message;
-import com.understand.anothertestredis.entities.User;
 import com.understand.anothertestredis.repository.MessageRepository;
 import com.understand.anothertestredis.repository.UserRepository;
 import com.understand.anothertestredis.service.dto.UserDto;

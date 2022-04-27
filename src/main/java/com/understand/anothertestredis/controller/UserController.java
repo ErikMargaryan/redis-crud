@@ -1,6 +1,5 @@
 package com.understand.anothertestredis.controller;
 
-import com.understand.anothertestredis.entities.User;
 import com.understand.anothertestredis.service.UserService;
 import com.understand.anothertestredis.service.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +23,6 @@ public class UserController {
     //creating user with checking have already exists or not: if yes then throws an exception
     @PostMapping("/register")
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
-        userService.findAll().forEach(userEntity1 -> {
-            if (userEntity1.getUsername().equals(userDto.getUsername())) {
-                throw new DuplicateKeyException("This username have already been");
-            }
-        });
-//        return new ResponseEntity<>(userService.save(userEntity), HttpStatus.CREATED);
         return ResponseEntity.ok(userService.save(userDto));
     }
 

@@ -1,7 +1,5 @@
 package com.understand.anothertestredis.service;
 
-import com.understand.anothertestredis.entities.Message;
-import com.understand.anothertestredis.entities.User;
 import com.understand.anothertestredis.repository.MessageRepository;
 import com.understand.anothertestredis.repository.UserRepository;
 import com.understand.anothertestredis.service.dto.MessageDto;
@@ -35,11 +33,6 @@ public class MessageService {
     }
 
     public MessageDto save(@Valid MessageDto dto) {
-        //here I have to use mapUser instance but later
-//        User byUsername = userRepository.findByKey(dto.getUsername());
-//        List<Message> messages = byUsername.getMessages();
-//        messages.add(dto);
-//        byUsername.setMessages(messages);
         UserDto byUsername = mapUser.entityToDto(userRepository.findByKey(dto.getUsername()));
         List<MessageDto> messages = byUsername.getMessages();
         messages.add(dto);
