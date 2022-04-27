@@ -2,7 +2,6 @@ package com.understand.anothertestredis.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.understand.anothertestredis.entities.enums.MessageType;
-import com.understand.anothertestredis.validation.annotation.UsernameValidation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +24,6 @@ public class User implements Serializable {
     private String id = UUID.randomUUID().toString();
     @NotNull
     private MessageType type;
-    @UsernameValidation
     private String username;
     @Min(18)
     @Max(80)
