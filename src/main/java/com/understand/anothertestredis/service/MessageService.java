@@ -48,4 +48,8 @@ public class MessageService {
     public List<MessageDto> findAll() {
         return mapMessage.toDtoList(messageRepository.findAll());
     }
+
+    public List<MessageDto> findUserAll(String username) {
+        return mapMessage.toDtoList(messageRepository.findUserAll(username));
+    }
 }
