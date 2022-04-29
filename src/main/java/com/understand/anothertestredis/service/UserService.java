@@ -27,8 +27,10 @@ public class UserService {
     }
 
     public UserDto save(@Valid UserDto dto) {
-        Message message = new Message();
+
+
         dto.getMessages().forEach(messageEntity -> {
+            Message message = new Message();
             message.setUsername(dto.getUsername() + UUID.randomUUID());
             message.setContent(messageEntity.getContent());
             message.setLocalDateTime(messageEntity.getLocalDateTime());
