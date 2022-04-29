@@ -35,9 +35,9 @@ public class MessageController {
         return ResponseEntity.ok(messageService.findByKey(actualKey));
     }
 
-    //find all messages
-    @GetMapping("/all")
-    public ResponseEntity<List<MessageDto>> getAllMessages() {
-        return ResponseEntity.ok(messageService.findAll());
+    //find all messages by username
+    @GetMapping("/all/{username}")
+    public ResponseEntity<List<MessageDto>> getAllMessages(@PathVariable String username) {
+        return ResponseEntity.ok(messageService.findUserAll(username));
     }
 }
