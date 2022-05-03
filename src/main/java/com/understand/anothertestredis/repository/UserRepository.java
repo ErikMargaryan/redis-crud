@@ -1,18 +1,21 @@
 package com.understand.anothertestredis.repository;
 
 import com.understand.anothertestredis.entities.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
 import java.util.*;
 
 @Repository
 public class UserRepository implements MyCrudOperations<User, String> {
     private static final String HASH_KEY_PREFIX = "UserKey:";
 
-    @Autowired
-    private RedisTemplate<String, Object> template;
+//    @Autowired
+//    private RedisTemplate<String, Object> template;
+
+    @Resource(name = "user")
+    private RedisTemplate<String, User> template;
 
     public User save(User entity) {
         template.opsForValue().set(HASH_KEY_PREFIX + entity.getUsername(), entity);
