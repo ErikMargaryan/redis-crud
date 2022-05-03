@@ -1,7 +1,7 @@
 package com.understand.anothertestredis.service;
 
-import com.understand.anothertestredis.entities.Message;
-import com.understand.anothertestredis.repository.MessageRepository;
+import com.understand.anothertestredis.entities.Skill;
+import com.understand.anothertestredis.repository.SkillRepository;
 import com.understand.anothertestredis.repository.UserRepository;
 import com.understand.anothertestredis.service.dto.UserDto;
 import com.understand.anothertestredis.service.mapper.MapUserEntityDtoMapper;
@@ -16,25 +16,22 @@ import java.util.*;
 @Validated
 public class UserService {
     private final UserRepository userRepository;
-    private final MessageRepository messageRepository;
+    private final SkillRepository skillRepository;
     private final MapUserEntityDtoMapper mapUser;
 
     @Autowired
-    public UserService(UserRepository userRepository, MessageRepository messageRepository, MapUserEntityDtoMapper mapUser) {
+    public UserService(UserRepository userRepository, SkillRepository skillRepository, MapUserEntityDtoMapper mapUser) {
         this.userRepository = userRepository;
-        this.messageRepository = messageRepository;
+        this.skillRepository = skillRepository;
         this.mapUser = mapUser;
     }
 
     public UserDto save(@Valid UserDto dto) {
-
-
-        dto.getMessages().forEach(messageEntity -> {
-            Message message = new Message();
-            message.setUsername(dto.getUsername() + UUID.randomUUID());
-            message.setContent(messageEntity.getContent());
-            message.setLocalDateTime(messageEntity.getLocalDateTime());
-            messageRepository.save(message);
+        dto.getSkills().forEach(skillDto -> {
+            Skill skill = new Skill();
+            skill.setUsername(dto.getUsername() + UUID.randomUUID());
+            skill.setSkill(skillDto.getSkill());
+            skillRepository.save(skill);
         });
         return mapUser.entityToDto(userRepository.save(mapUser.dtoToEntity(dto)));
     }
