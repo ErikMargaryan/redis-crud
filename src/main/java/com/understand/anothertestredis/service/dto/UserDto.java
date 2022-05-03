@@ -3,9 +3,7 @@ package com.understand.anothertestredis.service.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.understand.anothertestredis.entities.enums.MessageType;
 import com.understand.anothertestredis.validation.annotation.UsernameValidation;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
@@ -13,7 +11,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -28,6 +27,6 @@ public class UserDto {
     private int age;
     @Email
     private String email;
-    private List<MessageDto> messages;
+    private List<SkillDto> skills;
 
 }
