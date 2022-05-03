@@ -15,7 +15,6 @@ public @interface UsernameValidation {
     //error message
     public String message() default "This username have already been";
 
-
     //represents group of constraints
     public Class<?>[] groups() default {};
 
