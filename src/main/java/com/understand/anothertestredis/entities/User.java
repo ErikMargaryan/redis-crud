@@ -1,16 +1,15 @@
 package com.understand.anothertestredis.entities;
 
 import com.understand.anothertestredis.entities.enums.MessageType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
 import java.util.List;
 
 @RedisHash("user")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class User implements Serializable {
@@ -21,6 +20,6 @@ public class User implements Serializable {
     private MessageType type;
     private int age;
     private String email;
-    private List<Message> messages;
+    private List<Skill> skills;
 
 }
