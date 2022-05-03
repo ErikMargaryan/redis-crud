@@ -39,7 +39,6 @@ public class ControllerAdvice extends ResponseEntityExceptionHandler {
         ErrorDetails error = new ErrorDetails(
                 new Date(),
                 ex.getClass().getSimpleName(),
-//                ex.getMessage(),
                 details,
                 request.getDescription(false));
         return ResponseEntity.badRequest().body(error);
