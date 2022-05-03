@@ -1,6 +1,7 @@
 package com.understand.anothertestredis.config;
 
 import com.understand.anothertestredis.entities.Message;
+import com.understand.anothertestredis.entities.Skill;
 import com.understand.anothertestredis.entities.User;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -77,6 +78,20 @@ public class RedisConfig {
         redisTemplate.setConnectionFactory(connectionFactory());
         redisTemplate.setKeySerializer(stringRedisSerializer());
         redisTemplate.setValueSerializer(jacksonJsonRedisJsonSerializer1());
+        return redisTemplate;
+    }
+
+    @Bean
+    public Jackson2JsonRedisSerializer<Skill> jacksonJsonRedisJsonSerializer2() {
+        return new Jackson2JsonRedisSerializer<>(Skill.class);
+    }
+
+    @Bean(name = "skill")
+    public RedisTemplate<?, ?> redisTemplate2() {
+        RedisTemplate<String, Skill> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(connectionFactory());
+        redisTemplate.setKeySerializer(stringRedisSerializer());
+        redisTemplate.setValueSerializer(jacksonJsonRedisJsonSerializer2());
         return redisTemplate;
     }
 
