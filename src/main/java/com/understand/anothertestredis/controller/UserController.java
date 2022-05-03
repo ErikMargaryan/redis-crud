@@ -3,7 +3,6 @@ package com.understand.anothertestredis.controller;
 import com.understand.anothertestredis.service.UserService;
 import com.understand.anothertestredis.service.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
