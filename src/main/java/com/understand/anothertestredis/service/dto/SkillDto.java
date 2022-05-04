@@ -15,8 +15,7 @@ import javax.validation.constraints.NotNull;
 public class SkillDto {
     //username is not required to show
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @NotBlank(message = "username has to been fulfilled")
-    @NotNull(message = "username hasn't to be null")
+    @NotBlank(message = "username has to been fulfilled or hasn't to be null")
     private String username;
     @NotBlank(message = "skill hasn't to be null")
     private String skill;

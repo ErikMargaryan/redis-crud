@@ -4,11 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.understand.anothertestredis.entities.enums.MessageType;
 import com.understand.anothertestredis.validation.annotation.UsernameValidation;
 import lombok.*;
+import org.mapstruct.EnumMapping;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Getter
