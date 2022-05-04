@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.ValidationException;
 import java.util.List;
 
 @RestController
@@ -22,9 +21,6 @@ public class MessageController {
     //add messages. If you mention the username what has already exists, the message is added for that user
     @PostMapping("/add")
     public ResponseEntity<MessageDto> createOrAddMessage(@RequestBody MessageDto messageDto) {
-        if (messageDto.getContent() == null) {
-            throw new ValidationException("Content have to be filled");
-        }
 
         return ResponseEntity.ok(messageService.save(messageDto));
     }
@@ -39,5 +35,10 @@ public class MessageController {
     @GetMapping("/all/{username}")
     public ResponseEntity<List<MessageDto>> getAllMessages(@PathVariable String username) {
         return ResponseEntity.ok(messageService.findUserAll(username));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<MessageDto>> getAll() {
+        return ResponseEntity.ok(messageService.findAll());
     }
 }
