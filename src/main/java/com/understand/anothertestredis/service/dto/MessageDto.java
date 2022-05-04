@@ -18,8 +18,7 @@ public class MessageDto {
 
     //username is not required to show
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @NotBlank(message = "username has to been fulfilled")
-    @NotNull(message = "username hasn't to be null")
+    @NotBlank(message = "username has to been fulfilled or hasn't to be null")
     @UsernameExistValidation
     private String username;
     @NotBlank(message = "message type hasn't to be null")
