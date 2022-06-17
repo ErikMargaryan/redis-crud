@@ -23,8 +23,7 @@ public class UserRepository implements MyCrudOperations<User, String> {
     }
 
     public User findByActualKey(String key) {
-//        return template.opsForValue().get(key);
-        return (User) template.opsForValue().get(key);
+        return template.opsForValue().get(key);
     }
 
     public List<User> findAll() {
@@ -44,6 +43,10 @@ public class UserRepository implements MyCrudOperations<User, String> {
     public User findByKey(String key) {
         key = HASH_KEY_PREFIX + key;
         return findByActualKey(key);
+    }
+
+    public void delete(String key) {
+        template.delete(HASH_KEY_PREFIX + key);
     }
 
 }

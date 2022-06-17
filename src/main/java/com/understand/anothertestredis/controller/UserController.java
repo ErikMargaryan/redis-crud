@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -27,7 +28,7 @@ public class UserController {
 
     //show "username"'s messages and details
     @GetMapping
-    public ResponseEntity<UserDto> getByUsername(@RequestParam(value="username") String username) {
+    public ResponseEntity<UserDto> getByUsername(@RequestParam(value = "username") String username) {
         return ResponseEntity.ok(userService.findByUsername(username));
     }
 
@@ -37,4 +38,14 @@ public class UserController {
         return ResponseEntity.ok(userService.findAll());
     }
 
+    @PutMapping(path = "/{username}")
+    public ResponseEntity<UserDto> updateUser(@PathVariable("username") String key, @RequestBody UserDto user) {
+        UserDto dto = userService.updateUser(key, user);
+        return ResponseEntity.ok(dto);
+    }
+
+    @DeleteMapping("/{key}")
+    public void deleteUser(@PathVariable("key") String key) {
+        userService.delete(key);
+    }
 }

@@ -40,4 +40,16 @@ public class SkillController {
     public ResponseEntity<List<SkillDto>> getAllMessages(@PathVariable String username) {
         return ResponseEntity.ok(skillService.findUserAll(username));
     }
+
+    //find all skills
+    @GetMapping("/all")
+    public ResponseEntity<List<SkillDto>> getAll() {
+        return ResponseEntity.ok(skillService.findAll());
+    }
+
+    //delete that user's all skills
+    @DeleteMapping("/{key}")
+    public void deleteByUsername(@PathVariable("key") String key) {
+        skillService.delete(key);
+    }
 }

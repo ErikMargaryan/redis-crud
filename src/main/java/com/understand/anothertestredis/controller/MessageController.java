@@ -21,7 +21,6 @@ public class MessageController {
     //add messages. If you mention the username what has already exists, the message is added for that user
     @PostMapping("/add")
     public ResponseEntity<MessageDto> createOrAddMessage(@RequestBody MessageDto messageDto) {
-
         return ResponseEntity.ok(messageService.save(messageDto));
     }
 
@@ -40,5 +39,11 @@ public class MessageController {
     @GetMapping("/all")
     public ResponseEntity<List<MessageDto>> getAll() {
         return ResponseEntity.ok(messageService.findAll());
+    }
+
+    //delete that user's all messages
+    @DeleteMapping("/{key}")
+    public void deleteByUsername(@PathVariable("key") String key) {
+        messageService.delete(key);
     }
 }

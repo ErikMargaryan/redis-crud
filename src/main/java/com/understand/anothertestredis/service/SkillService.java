@@ -49,4 +49,8 @@ public class SkillService {
     public List<SkillDto> findUserAll(String username) {
         return mapSkill.toDtoList(skillRepository.findUserAll(username));
     }
+
+    public void delete(String key) {
+        skillRepository.deleteUserSide(key);
+    }
 }

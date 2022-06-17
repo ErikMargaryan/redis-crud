@@ -46,4 +46,8 @@ public class SkillRepository implements MyCrudOperations<Skill, String> {
         }
         return skillList;
     }
+
+    public void deleteUserSide(String username) {
+        template.delete(Objects.requireNonNull(template.keys(HASH_KEY_PREFIX + username + "*")));
+    }
 }

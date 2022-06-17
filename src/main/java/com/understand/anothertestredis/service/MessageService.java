@@ -17,14 +17,11 @@ import java.util.List;
 public class MessageService {
     private final MessageRepository messageRepository;
 
-    private final UserRepository userRepository;
-
     private final MapMessageEntityDtoMapper mapMessage;
 
     @Autowired
-    public MessageService(MessageRepository messageRepository, UserRepository userRepository, MapMessageEntityDtoMapper mapMessage) {
+    public MessageService(MessageRepository messageRepository, MapMessageEntityDtoMapper mapMessage) {
         this.messageRepository = messageRepository;
-        this.userRepository = userRepository;
         this.mapMessage = mapMessage;
     }
 
@@ -42,5 +39,9 @@ public class MessageService {
 
     public List<MessageDto> findUserAll(String username) {
         return mapMessage.toDtoList(messageRepository.findUserAll(username));
+    }
+
+    public void delete(String key) {
+        messageRepository.deleteUserSide(key);
     }
 }

@@ -51,4 +51,7 @@ public class MessageRepository implements MyCrudOperations<Message, String> {
         return messageList;
     }
 
+    public void deleteUserSide(String username) {
+        template.delete(Objects.requireNonNull(template.keys(HASH_KEY_PREFIX + username + "*")));
+    }
 }

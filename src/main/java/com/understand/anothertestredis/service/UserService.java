@@ -1,6 +1,8 @@
 package com.understand.anothertestredis.service;
 
 import com.understand.anothertestredis.entities.Skill;
+import com.understand.anothertestredis.entities.User;
+import com.understand.anothertestredis.repository.MessageRepository;
 import com.understand.anothertestredis.repository.SkillRepository;
 import com.understand.anothertestredis.repository.UserRepository;
 import com.understand.anothertestredis.service.dto.UserDto;
@@ -17,12 +19,14 @@ import java.util.*;
 public class UserService {
     private final UserRepository userRepository;
     private final SkillRepository skillRepository;
+    private final MessageRepository messageRepository;
     private final MapUserEntityDtoMapper mapUser;
 
     @Autowired
-    public UserService(UserRepository userRepository, SkillRepository skillRepository, MapUserEntityDtoMapper mapUser) {
+    public UserService(UserRepository userRepository, SkillRepository skillRepository, MessageRepository messageRepository, MapUserEntityDtoMapper mapUser) {
         this.userRepository = userRepository;
         this.skillRepository = skillRepository;
+        this.messageRepository = messageRepository;
         this.mapUser = mapUser;
     }
 
@@ -44,6 +48,21 @@ public class UserService {
         return mapUser.toDtoList(userRepository.findAll());
     }
 
+    public void delete(String key) {
+        userRepository.delete(key);
+        skillRepository.deleteUserSide(key);
+        messageRepository.deleteUserSide(key);
+    }
+
+    public UserDto updateUser(String key, @Valid UserDto dto) {
+        User entity = mapUser.dtoToEntity(findByUsername(key));
+        entity.setUsername(key);
+        entity.setType(dto.getType());
+        entity.setAge(dto.getAge());
+        entity.setEmail(dto.getEmail());
+        //skilleri pahov ligikan mi qich urish
+        return save(mapUser.entityToDto(entity));
+    }
 }
 
 
